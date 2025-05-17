@@ -36,26 +36,15 @@
         "Are they still performing?",
       ];
 
-      const captions1 = [
-        "A 'twice-behaved' behaviour",
-        "of a flexible b o d y",
-        "preconceived",
-        "unchangable and unquestionable",
-        "...",
-        "participating on voluntary involuntary basis",
-        "flirting with conceiled interpretation",
-        "in active poetry",
-      ];
-
       let index = 0;
       let captionWindow;
+      let isCaptionReady = false;
 
       function openNext() {
         if (index < urls.length) {
           window.open(urls[index], "_blank");
 
-          // Caption an das externe Fenster senden
-          if (captionWindow && !captionWindow.closed) {
+          if (captionWindow && !captionWindow.closed && isCaptionReady) {
             captionWindow.postMessage(captions[index], "*");
           }
 
@@ -69,18 +58,29 @@
         }
       }
 
-      window.onload = () => {
-        // Öffne externes Caption-Fenster
+      function start() {
+        const screenWidth = window.screen.availWidth;
+        const screenHeight = window.screen.availHeight;
+        const captionHeight = 150;
+        const top = screenHeight - captionHeight;
+
         captionWindow = window.open(
           "captions.html",
           "CaptionsWindow",
-          "width=1400,height=100,left=0, top=1000"
+          `width=${screenWidth},height=${captionHeight},left=0,top=${top}`
         );
-        setTimeout(openNext, 1000);
-      };
+      }
+
+      window.addEventListener("message", (event) => {
+        if (event.data === "ready") {
+          isCaptionReady = true;
+          openNext();
+        }
+      });
     </script>
   </head>
   <body>
     <h1>Hysteric Tabs</h1>
+    <button onclick="start()">Start</button>
   </body>
 </html>
