@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hysteric Tabs</title>
+    <script>
+      const urls = [
+        "https://d2w9rnfcy7mm78.cloudfront.net/32222903/original_71c5c4c3d93e720d8e82dfc8b74fe70f.png?1731608774?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/35854913/original_46932d9fe7f3e540fc07bb7bf7e2af18.png?1744147888?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/6834714/original_0f3d4fa0d8dce8dd3181f132bb4c4682.png?1586766235?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/26646650/original_09603c53f5f010f3f629dbe6f2f127ac.jpg?1709085788?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/32220385/original_4bd912b81c991293e32612b3a325fe0b.png?1731603045?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/6815632/original_15019e85e3803219cf1661478eab0853.jpg?1586619903?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/2237531/original_127e1f90e34d8c1d95c69a9c891f75a3.jpg?1527621079?bc=1",
+        "https://d2w9rnfcy7mm78.cloudfront.net/24110788/original_ea09e4dc5c064bc4735fcdde53dc9d70.jpg?1697050974?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/733483/original_981342842f38ae0425c167886fd9b6c4.png?1476243277?bc=1",
+        "https://d2w9rnfcy7mm78.cloudfront.net/2690721/original_a43de33b0d0b4850d0f99d8f5f1b2dcb?1536758189?bc=1",
+        "https://d2w9rnfcy7mm78.cloudfront.net/29654904/original_b685d16263b3697dffb3100ba55b4e9e.gif?1722128925?bc=0",
+        "https://d2w9rnfcy7mm78.cloudfront.net/13347724/original_090c40eb538a3966dc54694cf3447455.jpg?1632838826?bc=0",
+        "https://www.tiktok.com/@chotutufan.1/video/7471237430755020040",
+      ];
+
+      const captions = [
+        "Let me take you on a walk",
+        "with(out) your <body>",
+        "(live-streamed)",
+        "on a choreographed",
+        "sequence of spaces",
+        "echoing",
+        "non-verbal",
+        "...",
+        "searching for an exit",
+        "and the audience",
+        "Still performing",
+        "empty",
+        "Are they still performing?",
+      ];
+
+      const captions1 = [
+        "A 'twice-behaved' behaviour",
+        "of a flexible b o d y",
+        "preconceived",
+        "unchangable and unquestionable",
+        "...",
+        "participating on voluntary involuntary basis",
+        "flirting with conceiled interpretation",
+        "in active poetry",
+      ];
+
+      let index = 0;
+      let captionWindow;
+
+      function openNext() {
+        if (index < urls.length) {
+          window.open(urls[index], "_blank");
+
+          // Caption an das externe Fenster senden
+          if (captionWindow && !captionWindow.closed) {
+            captionWindow.postMessage(captions[index], "*");
+          }
+
+          const delay = index === 0 ? 8000 : 4000;
+          index++;
+          setTimeout(openNext, delay);
+        } else {
+          if (captionWindow && !captionWindow.closed) {
+            captionWindow.postMessage("Thanks for watching", "*");
+          }
+        }
+      }
+
+      window.onload = () => {
+        // Öffne externes Caption-Fenster
+        captionWindow = window.open(
+          "captions.html",
+          "CaptionsWindow",
+          "width=1400,height=100,left=0, top=1000"
+        );
+        setTimeout(openNext, 1000);
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Hysteric Tabs</h1>
+  </body>
+</html>

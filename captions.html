@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Captions</title>
+    <style>
+      body {
+        font-family: monospace;
+        background: white;
+        color: black;
+        font-size: 5rem;
+        padding: 1rem;
+      }
+    </style>
+    <script>
+      window.addEventListener("message", (event) => {
+        const captionElement = document.getElementById("caption");
+        captionElement.textContent = event.data;
+      });
+    </script>
+  </head>
+  <body>
+    <div id="caption">waiting...</div>
+  </body>
+</html>
